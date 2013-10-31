@@ -1,6 +1,6 @@
 CSCE 350 Project
 
-Facial Expression Recognision
+Facial Expression Recognision<Br>
 Authors: Richard Abercrombie, Tim Barrett
 
 ============================
