@@ -6,11 +6,7 @@ Date: 10/28/13
 Determine the Facial Expression of multiple images
 *************************/
 
-#include <iostream>
-#include <cstdlib>
-#include <fstream>
-#include <boost/filesystem.hpp>
-#include <boost/foreach.hpp>
+#include "main.h"
 
 namespace fs = boost::filesystem; 
 using namespace std;
