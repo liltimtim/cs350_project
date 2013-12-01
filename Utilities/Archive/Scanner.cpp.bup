@@ -1,0 +1,491 @@
+#include "Scanner.h"
+
+static const char TAG[] = "Scanner: ";
+
+/****************************************************************
+ * Constructor.
+**/
+Scanner::Scanner()
+{
+  string s = "zin.txt";
+  Utils::FileOpen(localStream, s);
+}
+
+/****************************************************************
+ * Constructor.
+**/
+Scanner::Scanner(string inFileName)
+{
+  Utils::FileOpen(localStream, inFileName);
+}
+
+/****************************************************************
+ * Destructor.
+**/
+Scanner::~Scanner()
+{
+}
+
+/****************************************************************
+ * Accessors and mutators.
+**/
+
+/****************************************************************
+ * General functions.
+**/
+/****************************************************************
+ * Constructor.
+**/
+void Scanner::close()
+{
+  Utils::FileClose(localStream);
+}
+
+/****************************************************************
+ * General function for testing.
+void Scanner::doTheWork(ifstream& inStream)
+{
+  char c;
+  int sub;
+  vector<char> vec;
+  char carray[50];
+
+  Utils::logStream << TAG << "enter doTheWork" << endl;
+  Utils::logStream.flush();
+
+// first we read the input stream
+  sub = 0;
+  c = inStream.get();
+  carray[sub] = c;
+  while (c != EOF)
+  {
+    Utils::logStream << "'" << c << "'" << endl;
+    Utils::logStream.flush();
+
+    vec.push_back(c);
+    ++sub;
+    carray[sub] = c;
+
+//    inStream >> c;
+    c = inStream.get();
+  } // while (c != EOF)
+
+// dump the vector we read
+  dumpVector(vec);
+
+// put back the characters
+  vector<char>::iterator iter;
+  for(iter = vec.end()-1; iter != vec.begin(); --iter)
+  {
+    Utils::logStream << "VEC '" << *iter << "'" << endl;
+    Utils::logStream.flush();
+    inStream.putback((char) *iter);
+  }
+
+// now we read the input stream again if we can
+  sub = 0;
+  c = inStream.get();
+  carray[sub] = c;
+  Utils::logStream << "ZORK A" << endl;
+  Utils::logStream.flush();
+  while (c != EOF)
+  {
+    Utils::logStream << "ZORK B" << endl;
+    Utils::logStream.flush();
+    Utils::logStream << "'" << c << "'" << endl;
+    Utils::logStream.flush();
+
+    vec.push_back(c);
+    ++sub;
+    carray[sub] = c;
+
+//    inStream >> c;
+    c = inStream.get();
+  } // while (c != EOF)
+
+
+  Utils::logStream << TAG << "leave doTheWork" << endl;
+  Utils::logStream.flush();
+} // void Scanner::doTheWork(ifstream& inStream)
+**/
+
+/****************************************************************
+ * General function for testing putback.
+void Scanner::doTheWork2(ifstream& inStream)
+{
+  char c1, c2, c3, c4;
+  vector<char> vec;
+
+  Utils::logStream << TAG << "enter doTheWork2" << endl;
+  Utils::logStream.flush();
+
+  // read character one
+  c1 = inStream.get();
+  Utils::logStream << "READ ONE     '" << c1 << "'" << endl;
+  Utils::logStream.flush();
+  vec.push_back(c1);
+
+  // read character two
+  c2 = inStream.get();
+  Utils::logStream << "READ TWO     '" << c2 << "'" << endl;
+  Utils::logStream.flush();
+  vec.push_back(c2);
+
+  // output the vector of characters to show we got it right
+  // and put back the characters
+  vector<char>::iterator iter;
+  for(iter = vec.end()-1; iter != vec.begin()-1; --iter)
+  {
+    Utils::logStream << "VEC '" << *iter << "'" << endl;
+    Utils::logStream.flush();
+
+    char localChar = static_cast<char>(*iter);
+    inStream.putback(localChar);
+  }
+
+  // put back character two
+//  inStream.putback((char) c2);
+  Utils::logStream << "PUT BACK TWO '" << c2 << "'" << endl;
+  Utils::logStream.flush();
+
+  // put back character one
+//  inStream.putback((char) c1);
+  Utils::logStream << "PUT BACK ONE '" << c1 << "'" << endl;
+  Utils::logStream.flush();
+
+  // read character one again
+  c3 = inStream.get();
+  Utils::logStream << "READ THREE   '" << c3 << "'" << endl;
+  Utils::logStream.flush();
+
+  // read character two again
+  c4 = inStream.get();
+  Utils::logStream << "READ FOUR    '" << c4 << "'" << endl;
+  Utils::logStream.flush();
+
+  Utils::logStream << TAG << "leave doTheWork2" << endl;
+  Utils::logStream.flush();
+} // void Scanner::doTheWork2(ifstream& inStream)
+**/
+
+/****************************************************************
+ * General function for testing functions.
+void Scanner::doTheWork3(ifstream& inStream)
+{
+//  char c1, c2, c3, c4;
+//  vector<char> vec;
+
+  Utils::logStream << TAG << "enter doTheWork3" << endl;
+  Utils::logStream.flush();
+
+  // read character one
+  c1 = inStream.get();
+  Utils::logStream << "READ ONE     '" << c1 << "'" << endl;
+  Utils::logStream.flush();
+  vec.push_back(c1);
+
+  // read character two
+  c2 = inStream.get();
+  Utils::logStream << "READ TWO     '" << c2 << "'" << endl;
+  Utils::logStream.flush();
+  vec.push_back(c2);
+
+  // output the vector of characters to show we got it right
+  // and put back the characters
+  vector<char>::iterator iter;
+  for(iter = vec.end()-1; iter != vec.begin()-1; --iter)
+  {
+    Utils::logStream << "VEC '" << *iter << "'" << endl;
+    Utils::logStream.flush();
+
+    char localChar = static_cast<char>(*iter);
+    inStream.putback(localChar);
+  }
+
+  // put back character two
+//  inStream.putback((char) c2);
+  Utils::logStream << "PUT BACK TWO '" << c2 << "'" << endl;
+  Utils::logStream.flush();
+
+  // put back character one
+//  inStream.putback((char) c1);
+  Utils::logStream << "PUT BACK ONE '" << c1 << "'" << endl;
+  Utils::logStream.flush();
+
+  // read character one again
+  c3 = inStream.get();
+  Utils::logStream << "READ THREE   '" << c3 << "'" << endl;
+  Utils::logStream.flush();
+
+  // read character two again
+  c4 = inStream.get();
+  Utils::logStream << "READ FOUR    '" << c4 << "'" << endl;
+  Utils::logStream.flush();
+
+  Utils::logStream << TAG << "leave doTheWork3" << endl;
+  Utils::logStream.flush();
+} // void Scanner::doTheWork3(ifstream& inStream)
+**/
+
+/****************************************************************
+ * Function for testing for more data in the file.
+**/
+bool Scanner::hasNext()
+{
+  bool returnValue = true;
+
+//  Utils::logStream << TAG << "enter hasNextNoParm" << endl;
+//  Utils::logStream.flush();
+
+  char c = localStream.get();
+  returnValue = true;
+  if(c == EOF)
+  {
+    returnValue = false;
+  }
+  else
+  {
+//    inStream.putback(c);
+    localStream.putback(c);
+  }
+
+//  Utils::logStream << TAG << "leave hasNextNoParm" << endl;
+//  Utils::logStream.flush();
+
+  return returnValue;
+} // bool Scanner::hasNext()
+
+/****************************************************************
+ * Function for dumping a vector of 'char' data.
+void Scanner::dumpVector(vector<char> v)
+{
+  vector<char>::iterator iter;
+
+  Utils::logStream << TAG << "enter dumpVector" << endl;
+  Utils::logStream.flush();
+
+  for(iter = v.begin(); iter != v.end(); ++iter)
+  {
+    Utils::logStream << "VEC '" << *iter << "'" << endl;
+    Utils::logStream.flush();
+  }
+
+  Utils::logStream << TAG << "leave dumpVector" << endl;
+  Utils::logStream.flush();
+} // void Scanner::dumpVector(vector<char> v)
+**/
+
+/****************************************************************
+ * Function for returning a next token as a string.
+ *
+ * We have two booleans to keep track of three states:
+ *   have not yet found NWS (token beginning)
+ *   have not yet found WS after finding NWS (token end)
+ *
+ * We read a character.
+ * If there is no next character to be read
+ *    Then we throw an error
+ * While we are not at end of file:
+ *    Test the char for NWS
+ *    If NWS
+ *       Set the bool that we have found NWS
+ *       If we have found WS after NWS, 
+ *          put back the NWS--it's the start of the next token
+ *          break
+ *       Else append the NWS to the token
+ *    Else (i.e., if WS)
+ *       If we have ever found NWS
+ *          Set the bool that we have found WS after NWS
+ *    Read the next character.
+ *
+ * @return the 'string' version of the next token.
+**/
+string Scanner::next()
+{
+  bool haveFoundTokenBegin;
+  bool haveFoundTokenEnd;
+  char c;
+  string returnValue;
+//  string whitespace = " \n\r\t";
+  size_t foundPos = string::npos;
+
+//  Utils::logStream << TAG << "enter nextNoParm" << endl;
+//  Utils::logStream.flush();
+
+  // read a character
+  // if EOF, that's an error
+  haveFoundTokenBegin = false;
+  haveFoundTokenEnd = false;
+  c = localStream.get();
+
+  if(localStream.eof())
+  {
+    Utils::logStream << TAG << "ERROR: no next to read" << endl;
+    Utils::logStream.flush();
+    exit(0);
+  }
+  else
+  {
+    // we toss whitespace if we have not found nonwhitespace
+    // we append nonwhitespace to the return value
+
+    // read until end of file or until beginning of next token
+    while(!localStream.eof())
+    {
+//      foundPos = whitespace.find(c);
+      foundPos = Utils::WHITESPACE.find(c);
+
+      if(foundPos == string::npos)
+      {
+        haveFoundTokenBegin = true;
+        if(haveFoundTokenEnd)
+        {
+          localStream.putback(c);
+          break;
+        }
+        returnValue = returnValue.append(1, c);
+      }
+      else
+      {
+        // we found whitespace
+        // now read until it isn't white space
+        if(haveFoundTokenBegin)
+        {
+          haveFoundTokenEnd = true;
+        }
+      } // if(foundPos == string::npos)
+
+      c = localStream.get();
+
+    } // while(!localStream.eof())
+  } // if(localStream.eof())
+
+//  Utils::logStream << TAG << "leave nextNoParm" << endl;
+//  Utils::logStream.flush();
+  return returnValue;
+} // string Scanner::next()
+
+/****************************************************************
+ * Function for returning a next character.
+**/
+char Scanner::nextChar()
+{
+//  Utils::logStream << TAG << "enter nextCharNoParm" << endl;
+//  Utils::logStream.flush();
+
+  char c = localStream.get();
+
+//  Utils::logStream << TAG << "leave nextCharNoParm" << endl;
+//  Utils::logStream.flush();
+  return c;
+} // char Scanner::nextChar()
+
+/****************************************************************
+ * Function for returning a next double.
+**/
+double Scanner::nextDouble()
+{
+  double returnValue;
+//  Utils::logStream << TAG << "enter nextDouble" << endl;
+//  Utils::logStream.flush();
+
+  string nextToken = this->next();
+  returnValue = atof(nextToken.c_str());
+
+//  Utils::logStream << TAG << "leave nextDouble" << endl;
+//  Utils::logStream.flush();
+  return returnValue;
+} // double Scanner::nextDouble()
+
+/****************************************************************
+ * Function for returning the next 'int' value.
+ *
+ * @return the 'int' version of the next value, or else an error.
+**/
+int Scanner::nextInt()
+{
+  int returnValue;
+  const string digits = "0123456789";
+  string nextToken;
+
+//  Utils::logStream << TAG << "enter nextInt" << endl;
+//  Utils::logStream.flush();
+
+  returnValue = 0;
+  nextToken = next();
+//  returnValue = stoi(nextToken, nullptr, 10); // can't get this to work
+  for(string::iterator iter = nextToken.begin(); iter != nextToken.end(); ++iter)
+  {
+    int digit = digits.find(*iter);
+    if((0 > digit) || (9 < digit))
+    {
+      Utils::logStream << TAG << "ERROR: string '" << nextToken
+                       << "' not a number" << endl;
+      Utils::logStream.flush();
+      exit(0);
+    } 
+    returnValue = 10*returnValue + digit;
+  }
+
+//  Utils::logStream << TAG << "leave nextInt" << endl;
+//  Utils::logStream.flush();
+  return returnValue;
+} // int Scanner::nextInt()
+
+/****************************************************************
+ * Function for returning the next 'LONG' value.
+ *
+ * @return the 'LONG' version of the next value, or else an error.
+**/
+int Scanner::nextLONG()
+{
+  LONG returnValue;
+  const string digits = "0123456789";
+  string nextToken;
+
+//  Utils::logStream << TAG << "enter nextLONG" << endl;
+//  Utils::logStream.flush();
+
+  returnValue = 0;
+  nextToken = next();
+//  returnValue = stoi(nextToken, nullptr, 10); // can't get this to work
+  for(string::iterator iter = nextToken.begin(); iter != nextToken.end(); ++iter)
+  {
+    LONG digit = digits.find(*iter);
+    if((0 > digit) || (9 < digit))
+    {
+      Utils::logStream << TAG << "ERROR: string '" << nextToken
+                       << "' not a number" << endl;
+      Utils::logStream.flush();
+      exit(0);
+    } 
+    returnValue = 10*returnValue + digit;
+  }
+
+//  Utils::logStream << TAG << "leave nextLONG" << endl;
+//  Utils::logStream.flush();
+  return returnValue;
+} // int Scanner::nextLONG()
+
+/****************************************************************
+ * Function for returning the rest of the line as a string.
+ *
+ * This is just a wrapper for the 'getline' function.
+ * Note that this does not trim whitespace at the beginning
+ * or at the end.
+ *
+ * @return the 'string' version of the rest of the line
+**/
+string Scanner::nextLine()
+{
+  string returnValue;
+
+//  Utils::logStream << TAG << "enter nextLine" << endl;
+//  Utils::logStream.flush();
+
+  getline(localStream, returnValue);
+
+//  Utils::logStream << TAG << "leave nextLine" << endl;
+//  Utils::logStream.flush();
+  return returnValue;
+} // string Scanner::nextLine()

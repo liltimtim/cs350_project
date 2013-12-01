@@ -1,0 +1,629 @@
+#include "Utils.h"
+
+static const char TAG[] = "Utils: ";
+
+ifstream Utils::inStream;
+ofstream Utils::outStream;
+ofstream Utils::logStream;
+ostringstream Utils::oss;
+stringstream Utils::ss;
+
+/****************************************************************
+ * Constructor.
+**/
+Utils::Utils()
+{
+}
+/****************************************************************
+ * Destructor.
+**/
+Utils::~Utils()
+{
+}
+
+/****************************************************************
+ * General functions.
+**/
+/****************************************************************
+ * Check for the correct number of arguments.
+ *
+ * Parameters:
+ *   howMany - the expected number of arguments
+ *   argc - the usual 'argc' of command line information
+ *   argv - the usual 'argv' of command line information
+ *   usage - the 'usage' message to display on error
+ * Return: none
+**/
+void Utils::CheckArgs(const int howMany, const int argc,
+                      char *argv[], const string usage)
+{
+  if(argc != howMany + 1)
+  {
+    cout << TAG << "incorrect argument count" << endl;
+    cout << TAG << "usage: " << argv[0] << " " << usage << endl;
+    exit(1);
+  }
+}
+
+/****************************************************************
+ * Close an input stream.
+ *
+ * Parameters:
+ *   inStream - the 'ifstream' input stream by reference
+ * Return: none
+**/
+void Utils::FileClose(ifstream& inStream)
+{
+  cout << TAG << "close the input file" << endl;
+  inStream.close();
+  cout << TAG << "the input file was closed" << endl;
+}
+
+/****************************************************************
+ * Close an output stream.
+ *
+ * Parameters:
+ *   outStream - the 'ofstream' output stream by reference
+ * Return: none
+**/
+void Utils::FileClose(ofstream& outStream)
+{
+  cout << TAG << "close the output file" << endl;
+  outStream.close();
+  cout << TAG << "the output file was closed" << endl;
+}
+
+/****************************************************************
+ * Open an input stream.
+ *
+ * Parameters:
+ *   inStream - the 'ifstream' input stream by reference
+ *   fileName - the name of the file to be opened
+ * Return: none
+**/
+void Utils::FileOpen(ifstream& inStream, string fileName)
+{
+  cout << TAG << "open the input file '" << fileName << "'" << endl;
+  inStream.open(fileName.c_str());
+  if(inStream.fail())
+  {
+    cout << TAG << "open failed for " << fileName << endl;
+    exit(0);
+  }
+  cout << TAG << "open succeeded for '" << fileName << "'" << endl;
+}
+
+/****************************************************************
+ * Open an output stream.
+ *
+ * Parameters:
+ *   outStream - the 'ofstream' output stream by reference
+ *   fileName - the name of the file to be opened
+ * Return: none
+**/
+void Utils::FileOpen(ofstream& outStream, string fileName)
+{
+  cout << TAG << "open the output file '" << fileName << "'" << endl;
+  outStream.open(fileName.c_str());
+  if(outStream.fail())
+  {
+    cout << TAG << "open failed for " << fileName << endl;
+    exit(0);
+  }
+  cout << TAG << "open succeeded for '" << fileName << "'" << endl;
+}
+
+/****************************************************************
+ * Open the static input stream.
+ *
+ * Parameters:
+ *   fileName - the name of the file to associate with
+ *              the 'Utils::inStream'
+ * Return: none
+**/
+void Utils::InFileOpen(string fileName)
+{
+  cout << TAG << "open the input file '" << fileName << "'" << endl;
+  inStream.open(fileName.c_str());
+  if(inStream.fail())
+  {
+    cout << TAG << "open failed for " << fileName << endl;
+    exit(0);
+  }
+  cout << TAG << "open succeeded for '" << fileName << "'" << endl;
+}
+
+/****************************************************************
+ * Open the static logfile stream.
+ *
+ * Parameters:
+ *   fileName - the name of the file to associate with
+ *              the 'Utils::logStream'
+ * Return: none
+**/
+void Utils::LogFileOpen(string fileName)
+{
+  cout << TAG << "open the logfile '" << fileName << "'" << endl;
+  logStream.open(fileName.c_str());
+  if(logStream.fail())
+  {
+    cout << TAG << "open failed for " << fileName << endl;
+    exit(0);
+  }
+  cout << TAG << "open succeeded for '" << fileName << "'" << endl;
+}
+
+/****************************************************************
+ * Open the static output stream.
+ *
+ * Parameters:
+ *   fileName - the name of the file to associate with
+ *              the 'Utils::outStream'
+ * Return: none
+**/
+void Utils::OutFileOpen(string fileName)
+{
+  cout << TAG << "open the output file '" << fileName << "'" << endl;
+  outStream.open(fileName.c_str());
+  if(outStream.fail())
+  {
+    cout << TAG << "open failed for " << fileName << endl;
+    exit(0);
+  }
+  cout << TAG << "open succeeded for '" << fileName << "'" << endl;
+}
+
+/****************************************************************
+ * These are the overloaded formatting functions that all return
+ * a 'string' value after having formatted the first argument.
+ * 
+ * We have the following formatting:
+ *   'char*' to a 'string' 
+ *   'char*' to a 'string' of 'width' (default right) 
+ *   'char*' to a 'string' of 'width' (left or right, default right) 
+ *
+ *   'string' to a 'string' 
+ *   'string' to a 'string' of 'width' (default right) 
+ *   'string' to a 'string' of 'width' (left or right, default right) 
+ *
+ *   'short'     to a 'string'
+ *   'short'     to a 'string' of 'width'
+ *   'int'       to a 'string'
+ *   'int'       to a 'string' of 'width'
+ *   'UINT'      to a 'string'
+ *   'UINT'      to a 'string' of 'width'
+ *   'long'      to a 'string'
+ *   'long'      to a 'string' of 'width'
+ *   'long long' to a 'string'
+ *   'long long' to a 'string' of 'width'
+ *
+ *   'double' to a 'string'
+ *   'double' to a 'string' of 'width'
+ *   'double' to a 'string' of 'width' and 'precision'
+ *
+**/
+/****************************************************************
+ * String-ify a 'char*' array, without width formatting.
+ *
+ * Parameters:
+ *   value - the 'char*' variable to be converted and formatted.
+ * Return: the string-ified version of 'value'
+**/
+string Utils::Format(const char* value)
+{
+  Utils::oss.str("");
+  Utils::oss << static_cast<string>(value);
+  return oss.str();
+} // string Utils::Format(char* value)
+
+/****************************************************************
+ * String-ify a 'char*' array, with width formatting.  This
+ * justifies using the default left justification.
+ *
+ * Parameters:
+ *   value - the 'char*' variable to be converted and formatted.
+ *   width - the width of the output field.
+ * Return: the string-ified version of 'value'
+**/
+string Utils::Format(const char* value, const long width)
+{
+  Utils::oss.str("");
+  Utils::oss << setw(width) << static_cast<string>(value);
+  return oss.str();
+} // string Utils::Format(char* value, long width)
+
+/****************************************************************
+ * String-ify a 'char*' array, with width formatting and with
+ * specified justification.
+ *
+ * Parameters:
+ *   value - the 'char*' variable to be converted and formatted.
+ *   width - the width of the output field.
+ *   justify - desired justification, either 'right' or 'left'
+ * Return: the string-ified version of 'value'
+**/
+string Utils::Format(const char* value, const long width,
+                     const string justify)
+{
+  Utils::oss.str("");
+
+  if("left" == justify)
+  {
+    Utils::oss.setf(ios::left, ios::adjustfield);
+    Utils::oss << setw(width) << static_cast<string>(value);
+  }
+  else if("right" == justify)
+  {
+    Utils::oss.setf(ios::right, ios::adjustfield);
+    Utils::oss << setw(width) << static_cast<string>(value);
+  }
+  else
+  {
+    Utils::oss << setw(width) << static_cast<string>(value);
+  }
+  return oss.str();
+} // string Utils::Format(char* value, long width, string justify)
+
+/****************************************************************
+ * String-ify a string, without width formatting and without
+ * specified justification.  This is just a pass-through.
+ *
+ * Parameters:
+ *   value - the 'string' variable to be converted and formatted.
+ * Return: the string-ified version of 'value'
+**/
+string Utils::Format(const string value)
+{
+  return value;
+} // string Utils::Format(string value)
+
+/****************************************************************
+ * String-ify a string, with width formatting but and without
+ * specified justification.
+ *
+ * Parameters:
+ *   value - the 'string' variable to be converted and formatted.
+ *   width - the width of the output field.
+ * Return: the string-ified version of 'value'
+**/
+string Utils::Format(const string value, const long width)
+{
+  Utils::oss.str("");
+  Utils::oss << setw(width) << value;
+  return oss.str();
+} // string Utils::Format(string value, long width)
+
+/****************************************************************
+ * String-ify a 'string', with width formatting and with
+ * specified justification.
+ *
+ * Parameters:
+ *   value - the 'string' variable to be converted and formatted.
+ *   width - the width of the output field.
+ *   justify - desired justification, either 'right' or 'left'
+ * Return: the string-ified version of 'value'
+**/
+string Utils::Format(const string value, const long width,
+                     const string justify)
+{
+  Utils::oss.str("");
+  if("left" == justify)
+  {
+    Utils::oss.setf(ios::left, ios::adjustfield);
+    Utils::oss << setw(width) << value;
+  }
+  else if("right" == justify)
+  {
+    Utils::oss.setf(ios::right, ios::adjustfield);
+    Utils::oss << setw(width) << value;
+  }
+  else
+  {
+    Utils::oss << setw(width) << value;
+  }
+  return oss.str();
+} // string Utils::Format(string value, long width, string justify)
+
+/****************************************************************
+ * String-ify a 'short', without width formatting and without
+ * specified justification.
+ *
+ * Parameters:
+ *   value - the 'short' variable to be converted and formatted.
+ * Return: the string-ified version of 'value'
+**/
+string Utils::Format(const short value)
+{
+  Utils::oss.str("");
+  Utils::oss << value;
+  return oss.str();
+} // string Utils::Format(short value)
+
+/****************************************************************
+ * String-ify a 'short', with width formatting but without
+ * specified justification.
+ *
+ * Parameters:
+ *   value - the 'short' variable to be converted and formatted.
+ *   width - the width of the output field.
+ * Return: the string-ified version of 'value'
+**/
+string Utils::Format(const short value, const long width)
+{
+  Utils::oss.str("");
+  Utils::oss << setw(width) << value;
+  return oss.str();
+} // string Utils::Format(short value, long width)
+
+/****************************************************************
+ * String-ify an 'int', without width formatting and without
+ * specified justification.
+ *
+ * Parameters:
+ *   value - the 'int' variable to be converted and formatted.
+ * Return: the string-ified version of 'value'
+**/
+string Utils::Format(const int value)
+{
+  Utils::oss.str("");
+  Utils::oss << value;
+  return oss.str();
+} // string Utils::Format(int value)
+
+/****************************************************************
+ * String-ify an 'int', with width formatting but without
+ * specified justification.
+ *
+ * Parameters:
+ *   value - the 'int' variable to be converted and formatted.
+ *   width - the width of the output field.
+ * Return: the string-ified version of 'value'
+**/
+string Utils::Format(const int value, const long width)
+{
+  Utils::oss.str("");
+  Utils::oss << setw(width) << value;
+  return oss.str();
+} // string Utils::Format(int value, long width)
+
+/****************************************************************
+ * String-ify a 'UINT', without width formatting and without
+ * specified justification.
+ *
+ * Parameters:
+ *   value - the 'UINT' variable to be converted and formatted.
+ * Return: the string-ified version of 'value'
+**/
+string Utils::Format(const UINT value)
+{
+  Utils::oss.str("");
+  Utils::oss << value;
+  return oss.str();
+} // string Utils::Format(UINT value)
+
+/****************************************************************
+ * String-ify a 'UINT', with width formatting but without
+ * specified justification.
+ *
+ * Parameters:
+ *   value - the 'UINT' variable to be converted and formatted.
+ *   width - the width of the output field.
+ * Return: the string-ified version of 'value'
+**/
+string Utils::Format(const UINT value, const long width)
+{
+  Utils::oss.str("");
+  Utils::oss << setw(width) << value;
+  return oss.str();
+} // string Utils::Format(UINT value, long width)
+
+/****************************************************************
+ * String-ify a 'long', without width formatting and without
+ * specified justification.
+ *
+ * Parameters:
+ *   value - the 'long' variable to be converted and formatted.
+ * Return: the string-ified version of 'value'
+**/
+string Utils::Format(const long value)
+{
+  Utils::oss.str("");
+  Utils::oss << value;
+  return oss.str();
+} // string Utils::Format(long value)
+
+/****************************************************************
+ * String-ify a 'long', with width formatting but without
+ * specified justification.
+ *
+ * Parameters:
+ *   value - the 'long' variable to be converted and formatted.
+ *   width - the width of the output field.
+ * Return: the string-ified version of 'value'
+**/
+string Utils::Format(const long value, const long width)
+{
+  Utils::oss.str("");
+  Utils::oss << setw(width) << value;
+  return oss.str();
+} // string Utils::Format(long value, long width)
+
+/****************************************************************
+ * String-ify a 'long long', without width formatting and without
+ * specified justification.
+ *
+ * Parameters:
+ *   value - the 'long long' variable to be converted and formatted.
+ * Return: the string-ified version of 'value'
+**/
+string Utils::Format(const long long value)
+{
+  Utils::oss.str("");
+  Utils::oss << value;
+  return oss.str();
+} // string Utils::Format(long long value)
+
+/****************************************************************
+ * String-ify a 'long long', without width formatting and without
+ * specified justification.
+ *
+ * Parameters:
+ *   value - the 'long long' variable to be converted and formatted.
+ *   width - the width of the output field.
+ * Return: the string-ified version of 'value'
+**/
+string Utils::Format(const long long value, const long width)
+{
+  Utils::oss.str("");
+  Utils::oss << setw(width) << value;
+  return oss.str();
+} // string Utils::Format(long long value, long width)
+
+/****************************************************************
+ * String-ify a 'double', with width formatting but without
+ * specified precision.
+ *
+ * Parameters:
+ *   value - the 'double' variable to be converted and formatted.
+ *   width - the width of the output field.
+ * Return: the string-ified version of 'value'
+**/
+string Utils::Format(const double value, const long width)
+{
+  Utils::oss.str("");
+  Utils::oss << setw(width) << value;
+  return oss.str();
+} // string Utils::Format(double value, long width)
+
+/****************************************************************
+ * String-ify a 'double', with width formatting and with
+ * specified precision.
+ *
+ * Parameters:
+ *   value - the 'int' variable to be converted and formatted.
+ *   width - the width of the output field.
+ *   precision - desired precision to the right of the point
+ * Return: the string-ified version of 'value'
+**/
+string Utils::Format(const double value, const long width,
+                     const long precision)
+{
+  Utils::oss.str("");
+  Utils::oss << fixed << setprecision(precision) << setw(width)
+             << value;
+  return oss.str();
+} // string Utils::Format(const double value, const long width,
+
+/****************************************************************
+ * Call the timing function
+ *
+ * Parameters:
+ *   timestring - the label to be put into the time log
+ * Returns: the 'string' version of the timing log
+**/
+string Utils::timecall(const string timestring)
+{
+  char s[160];
+  string returnValue;
+  static bool firsttime = true;
+  static double usercurrent = 0.0,userone = 0.0,usertwo = 0.0;
+  static double systemcurrent = 0.0,systemone = 0.0,systemtwo = 0.0;
+  static double cpupctone,cpupcttwo;
+  static double TIMEsystemtotal,TIMEusertotal;
+  static struct rusage rusage;
+  static time_t TIMEtcurrent,TIMEtone,TIMEttotal = 0.0,TIMEttwo;
+
+  if(firsttime)
+  {
+    firsttime = false;
+    TIMEusertotal = 0.0;
+    TIMEsystemtotal = 0.0;
+    TIMEtone = time(0);
+    TIMEttwo = time(0);
+  }
+
+  getrusage(RUSAGE_SELF,&rusage);
+
+  usertwo = (double) rusage.ru_utime.tv_sec;
+  usertwo += (double) rusage.ru_utime.tv_usec/1000000.0;
+  systemtwo = (double) rusage.ru_stime.tv_sec;
+  systemtwo += (double) rusage.ru_stime.tv_usec/1000000.0;
+
+  usercurrent = usertwo - userone;
+  systemcurrent = systemtwo - systemone;
+
+  TIMEusertotal += usercurrent;
+  TIMEsystemtotal += systemcurrent;
+
+  TIMEttwo = time(0);
+  TIMEtcurrent = TIMEttwo - TIMEtone;
+  TIMEttotal += TIMEtcurrent;
+  if(TIMEtcurrent != 0)
+  {
+    cpupctone = 100.0 * ((double)usercurrent+systemcurrent) /
+                           ((double)(TIMEtcurrent));
+    if(cpupctone > 100.0) cpupctone = 100.0;
+  }
+  else
+  {
+    cpupctone = 0.0;
+  }
+
+  if(TIMEttotal != 0)
+  {
+    cpupcttwo = 100.0 * ((double)TIMEusertotal+TIMEsystemtotal) /
+                           ((double)(TIMEttotal));
+    if(cpupcttwo > 100.0) cpupcttwo = 100.0;
+  }
+  else
+  {
+    cpupcttwo = 0.0;
+  }
+
+  returnValue = "";
+  snprintf(s,80,"\nTIME***********************************************************************\n");
+  returnValue += static_cast<string>(s);
+
+  snprintf(s,80,"TIME CPU percent  %6.2f %6.2f                    %s",
+             cpupctone,cpupcttwo,ctime(&TIMEttwo));
+  returnValue += static_cast<string>(s);
+
+  snprintf(s,80,"TIME %-15s %10.2f u   %10.2f s\n",
+                 timestring.c_str(),usercurrent,systemcurrent);
+  returnValue += static_cast<string>(s);
+
+  snprintf(s,80,"TIME %-15s %10.2f u_t %10.2f s_t\n",
+                 timestring.c_str(),TIMEusertotal,TIMEsystemtotal);
+  returnValue += static_cast<string>(s);
+
+  snprintf(s,80,"TIME***********************************************************************\n");
+  returnValue += static_cast<string>(s);
+
+  returnValue += "\n\n";
+
+  userone = usertwo;
+  systemone = systemtwo;
+  TIMEtone = TIMEttwo;
+
+  return returnValue;
+} // string Utils::timecall(const string timestring)
+
+/****************************************************************
+ * Convert a string to all lowercase.
+ *
+ * Parameters:
+ *   to - the input 'string' to convert 
+ *   from - the output converted 'string'
+ * Returns: none
+**/
+void Utils::toLower(string& to, const string from)
+{
+  static char c[80];
+
+  snprintf(c, 80, "%s", from.c_str());
+  for(UINT i = 0; i < from.length(); ++i)
+  {
+    if(isupper(c[i])) c[i] = tolower(c[i]);
+  }
+  to = static_cast<string>(c);
+} // void Utils::toLower(string& to, const string from)
