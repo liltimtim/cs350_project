@@ -1,86 +1,59 @@
- /************************
-Name: Richard Abercrombie
-Project: CSCE 350 Facial Expression Recognition 
-Date: 10/28/13
+/****************************************************************
+ * Main program for parsing text for frequency counts and index.
+ *
+ * Author/copyright:  Richard Abercrombie and Timothy Barrett
+ * Date: 1 December 2013
+ *
+**/
+#include "Main.h"
 
-Determine the Facial Expression of multiple images
-*************************/
-
-#include <iostream>
-#include <cstdlib>
-#include <fstream>
-#include <boost/filesystem.hpp>
-#include <boost/foreach.hpp>
-
-namespace fs = boost::filesystem; 
-using namespace std;
+static const char TAG[] = "Main: ";
 
 int main(int argc, char *argv[])
 {
-string inLine;
-ifstream inFile;
-ofstream outFile;
-    
-//Determine whether correct arguments are used
-if(argc != 3) {
-    cout << "Usage: " << argv[0] << " <Input Directory> <Outfile>" << endl;
-    exit(1);
-}
+  string timeCallOutput;
+  string dataFileName;
+  string stopWordsFileName;
+  string outFileName;
+  string logFileName;
+  ofstream outStream;
+  Scanner dataFile;
+  Scanner stopWordsFile;
 
-string dir = argv[1];
+  Utils::CheckArgs(4, argc, argv, "stoplistfilename datafilename outfilename logfilename");
+  stopWordsFileName = (string) argv[1];
+  dataFileName = (string) argv[2];
+  outFileName = (string) argv[3];
+  logFileName = (string) argv[4];
 
-//Iterate through the input directory
-fs::path targetDir(dir); 
-fs::directory_iterator it(targetDir), eod;
+  Utils::LogFileOpen(logFileName);
+  Utils::FileOpen(outStream, outFileName);
 
-BOOST_FOREACH(fs::path const &p, std::make_pair(it, eod))   
-{ 
-    if(is_regular_file(p))
-    {   
-        //Gather file information (name, id, type, aulabel)
-        string filename = p.string();
-        string fileID = filename.substr(21,3);
-        string file_type = "";
-        string auLabel = "";
-        if (filename.substr(25,1) == "t") {
-            file_type = "template";    
-        } else {
-            file_type = "au";
-            auLabel = filename.substr(27,2);
-        }
-        
-        //Print out information
-        cout << "Filename: " << filename << endl;
-        cout << "File ID: " << filename.substr(21, 3) << " \t File Type: " << file_type; 
-        if (file_type == "au") {
-            cout << " \t AU Label: " << auLabel;
-        }
-        cout << endl;
-    } 
-}
+  Utils::logStream << TAG << "Beginning execution" << endl;
+  timeCallOutput = Utils::timecall("beginning");
+  Utils::logStream << timeCallOutput;
+  Utils::logStream.flush();
 
+  Utils::logStream << TAG << "stoplistfile  '" << stopWordsFileName << "'" << endl;
+  Utils::logStream << TAG << "datafile '" << dataFileName << "'" << endl;
+  Utils::logStream << TAG << "outfile  '" << outFileName << "'" << endl;
 
-//INFILE STUFF
-// inFile.open(argv[1]);
-// if(inFile.fail()) {
-//     cout << "Error openning the file " << argv[1] << " \n";
-//     exit(1);
-// }
+  // dataFile.openFile(dataFileName);
+  // document = parser.readText(stopWords, dataFile);
+  // dataFile.close();
 
-// OUTFILE STUFF
-// outFile.open(argv[3]);
-// if(outFile.fail()) {
-//     cout << "Error openning the file " << argv[2] << " \n";
-//     exit(1);
-// }
+  // outStream << TAG << "SINGLE TERMS\n" << document.singleTerms() << endl;
+  // outStream.flush();
 
-// inFile >> MyPDB;
-// outFile << MyPDB;
+  // outStream << TAG << "BIGRAMS\n" << document.bigrams() << endl;
+  // outStream.flush();
 
+  Utils::FileClose(outStream);
 
-// inFile.close();
-// outFile.close();
+  Utils::logStream << TAG << "Ending execution" << endl;
+  timeCallOutput = Utils::timecall("ending");
+  Utils::logStream << timeCallOutput;
+  Utils::logStream.flush();
 
-
-  return EXIT_SUCCESS;
+  return 0;
 }

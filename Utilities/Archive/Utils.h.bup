@@ -1,0 +1,94 @@
+/****************************************************************
+ * Header for the 'Utils' class for utility programs.
+ *
+ * Author/copyright:  Duncan Buell
+ * Date: 13 January 2010
+ *
+ * This code performs utility functions, including:
+ * 1.  check for appropriate number of arguments and print an
+ *     output 'usage' message if incorrect.
+ * 2.  open/close input, output, and log files.
+ * 3.  timing
+**/
+
+#ifndef UTILS_H_
+#define UTILS_H_
+
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <iomanip>
+#include <cstdlib>
+#include <string>
+#include <time.h>
+#include <sys/time.h>
+#include <sys/resource.h>
+
+using namespace std;
+
+class Utils
+{
+public:
+  typedef unsigned int UINT;
+/****************************************************************
+ * Input, output, and log streams.
+**/
+  static ifstream inStream;
+  static ofstream outStream;
+  static ofstream logStream;
+
+//  static stringstream utilsss(stringstream::in | stringstream::out);
+  static stringstream ss;
+  static ostringstream oss;
+
+/****************************************************************
+ * Constructors and destructors for the class. 
+**/
+  Utils();
+  virtual ~Utils();
+
+/****************************************************************
+ * Constructors and destructors for the class. 
+**/
+  static void CheckArgs(const int howMany, const int argc,
+                        char *argv[], const string usage);
+  static void FileClose(ifstream& inStream);
+  static void FileClose(ofstream& outStream);
+  static void FileOpen(ifstream& inStream, const string fileName);
+  static void FileOpen(ofstream& outStream, const string fileName);
+  static void InFileOpen(const string fileName);
+  static void OutFileOpen(const string fileName);
+  static void LogFileOpen(const string fileName);
+
+  static void toLower(string& to, const string from);
+
+  static string Format(const char* value);
+  static string Format(const char* value, const long width);
+  static string Format(const char* value, const long width,
+                       const string justify);
+
+  static string Format(const string value);
+  static string Format(const string value, const long width);
+  static string Format(const string value, const long width,
+                       const string justify);
+
+  static string Format(const short value);
+  static string Format(const short value, const long width);
+  static string Format(const int value);
+  static string Format(const int value, const long width);
+  static string Format(const UINT value);
+  static string Format(const UINT value, const long width);
+  static string Format(const long value);
+  static string Format(const long value, const long width);
+  static string Format(const long long value);
+  static string Format(const long long value, const long width);
+  static string Format(const double value, const long width);
+  static string Format(const double value, const long width,
+                       const long precision);
+
+  static string timecall(const string timestring);
+
+private:
+};
+
+#endif /*UTILS_H_*/

@@ -1,0 +1,14 @@
+#include <iostream>
+#include <fstream>
+#include <cstdlib>
+#include <string>
+#include <vector>
+
+#define NDEBUG
+#include <cassert>
+
+#include "Utils.h"
+
+typedef int64_t LONG;
+
+using namespace std;
