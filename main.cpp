@@ -6,7 +6,7 @@
  *
 **/
 #include "Main.h"
-
+#include <dirent.h>
 static const char TAG[] = "Main: ";
 
 int main(int argc, char *argv[])
