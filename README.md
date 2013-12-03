@@ -44,14 +44,20 @@ make
 			<li>
 				Sample output of AU###_results.txt <br>
 <pre>
-Similarity value 	Index (line number)
-3.125 			2
-1.245 			6
-(to 10 values) 		..
+Similarity value	Index (line number)
+0.82			2
+0.76			6
+(to 10 values)		..
 </pre>
 
 			</li>
 		</ul>
+	</li>
+	<li>
+		Multithreading
+	</li>
+	<li>
+		KD Tree
 	</li>
 </ul>
 
