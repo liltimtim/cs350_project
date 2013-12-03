@@ -10,21 +10,21 @@ Authors: Richard Abercrombie, Tim Barrett
 <h4>Compiling and running</h4>
 <p>To compile and run the program from scratch:</p>
 
-<code>
-	make
-	./FacialRecognition
-</code>
+<pre>
+make
+./FacialRecognition
+</pre>
 
 <p>To recompile:</p>
 
 <pre>
-	#Method 1
-	make clean
-	make
-	./FacialRecognition
+#Method 1
+make clean
+make
+./FacialRecognition
 
-	#Method 2
-	./run.sh
+#Method 2
+./run.sh
 </pre>
 
 
@@ -43,12 +43,12 @@ Authors: Richard Abercrombie, Tim Barrett
 			</li>
 			<li>
 				Sample output of AU###_results.txt <br>
-				<pre>
-			    Similarity value 			Index (line number)
-			    3.125 						2
-			    1.245 						6
-			    (to 10 values) 				..
-				</pre>
+<pre>
+Similarity value 	Index (line number)
+3.125 			2
+1.245 			6
+(to 10 values) 		..
+</pre>
 
 			</li>
 		</ul>
