@@ -11,15 +11,20 @@ main.h file for main.cpp
 
 #include <iostream>
 #include <cstdlib>
-#include <boost/filesystem.hpp>
-#include <boost/foreach.hpp>
+#include <cstring>
+#include "DoStuff.h"
+// #include "Utilities/Timer.h"
+using namespace std;
 
-class main{
+class Main{
 	public:
 
 		int main();
 
+
 	private:
+
+
 
 };
 

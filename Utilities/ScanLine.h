@@ -61,6 +61,7 @@ public:
   int nextInt();
   LONG nextLONG();
   string nextLine();
+  double nextDouble();
 
 private:
 

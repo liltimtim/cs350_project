@@ -86,14 +86,14 @@ void Utils::FileClose(ofstream& outStream)
 **/
 void Utils::FileOpen(ifstream& inStream, string fileName)
 {
-  cout << TAG << "open the input file '" << fileName << "'" << endl;
+  // cout << TAG << "open the input file '" << fileName << "'" << endl;
   inStream.open(fileName.c_str());
   if(inStream.fail())
   {
     cout << TAG << "open failed for " << fileName << endl;
     exit(0);
   }
-  cout << TAG << "open succeeded for '" << fileName << "'" << endl;
+  // cout << TAG << "open succeeded for '" << fileName << "'" << endl;
 }
 
 /****************************************************************
@@ -113,7 +113,7 @@ void Utils::FileOpen(ofstream& outStream, string fileName)
     cout << TAG << "open failed for " << fileName << endl;
     exit(0);
   }
-  cout << TAG << "open succeeded for '" << fileName << "'" << endl;
+  // cout << TAG << "open succeeded for '" << fileName << "'" << endl;
 }
 
 /****************************************************************
@@ -153,7 +153,7 @@ void Utils::LogFileOpen(string fileName)
     cout << TAG << "open failed for " << fileName << endl;
     exit(0);
   }
-  cout << TAG << "open succeeded for '" << fileName << "'" << endl;
+  // cout << TAG << "open succeeded for '" << fileName << "'" << endl;
 }
 
 /****************************************************************

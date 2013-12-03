@@ -210,6 +210,25 @@ LONG ScanLine::nextLONG()
 } 
 
 /****************************************************************
+ * Function for returning a next 'double'.
+ *
+ * This function does not trap errors. Errors in converting from
+ * 'string' to 'double' simply cause crashing.
+ *
+ * Returns:
+ *   the next token in the file, parsed as a 'double'
+**/
+double ScanLine::nextDouble()
+{
+  double returnValue;
+
+  string nextToken = this->next();
+  returnValue = atof(nextToken.c_str());
+
+  return returnValue;
+} // double ScanLine::nextDouble()
+
+/****************************************************************
  * Test function to read.
 void ScanLine::zork()
 {

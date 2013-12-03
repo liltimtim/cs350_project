@@ -1,82 +1,44 @@
  /************************
-Name: Richard Abercrombie
+Authors: Richard Abercrombie, Tim Barrett
 Project: CSCE 350 Facial Expression Recognition 
 Date: 10/28/13
 
 Determine the Facial Expression of multiple images
 *************************/
 
-#include "main.h"
+#include "Main.h"
 
-namespace fs = boost::filesystem; 
-using namespace std;
+static const string PATH_1 = "./data_project_part1";
+static const string PATH_2 = "./data_project_part2";
 
-int main(int argc, char *argv[])
-{
-string inLine;
-ifstream inFile;
-ofstream outFile;
-    
-//Determine whether correct arguments are used
-if(argc != 3) {
-    cout << "Usage: " << argv[0] << " <Input Directory> <Outfile>" << endl;
-    exit(1);
-}
+int main(int argc, char *argv[]) {
+    // Timer tmr;
 
-string dir = argv[1];
+	DIR* indir1;
+	DIR* indir2;
+    DIR* outdir;
+	DoStuff Worker;
 
-//Iterate through the input directory
-fs::path targetDir(dir); 
-fs::directory_iterator it(targetDir), eod;
+    //Define Directories
+    indir1 = opendir(PATH_1.c_str());
+    indir2 = opendir(PATH_2.c_str());
 
-// BOOST_FOREACH(fs::path const &p, std::make_pair(it, eod))   
-// { 
-//     if(is_regular_file(p))
-//     {   
-//         //Gather file information (name, id, type, aulabel)
-//         string filename = p.string();
-//         string fileID = filename.substr(21,3);
-//         string file_type = "";
-//         string auLabel = "";
-//         if (filename.substr(25,1) == "t") {
-//             file_type = "template";    
-//         } else {
-//             file_type = "au";
-//             auLabel = filename.substr(27,2);
-//         }
-        
-//         //Print out information
-//         cout << "Filename: " << filename << endl;
-//         cout << "File ID: " << filename.substr(21, 3) << " \t File Type: " << file_type; 
-//         if (file_type == "au") {
-//             cout << " \t AU Label: " << auLabel;
-//         }
-//         cout << endl;
-//     } 
-// }
+    //Process files within Directories
+    Worker.feed(indir1, PATH_1);
+    Worker.feed(indir2, PATH_2);
 
+    // double timeElap = tmr.elapsed();
+    // cout << timeElap << endl;
+    //Calculate the similiarity values for all 
+    //queries and templates
+    // Worker.calculate_distances();
+    // Worker.write_distances();
+    //Worker.write_distances returns AU###_result.txt
+    //
+    //Similarity value              Index (line number)
+    // 3.125                        2
+    // 1.245                        6
+    // ,,                            ..
 
-//INFILE STUFF
-// inFile.open(argv[1]);
-// if(inFile.fail()) {
-//     cout << "Error openning the file " << argv[1] << " \n";
-//     exit(1);
-// }
-
-// OUTFILE STUFF
-// outFile.open(argv[3]);
-// if(outFile.fail()) {
-//     cout << "Error openning the file " << argv[2] << " \n";
-//     exit(1);
-// }
-
-// inFile >> MyPDB;
-// outFile << MyPDB;
-
-
-// inFile.close();
-// outFile.close();
-
-
-  return EXIT_SUCCESS;
+    return 0;
 }
