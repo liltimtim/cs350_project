@@ -9,7 +9,7 @@ public:
 	Threader();
 
 	void multithread();
-	int calculation();
+	int calculation(int a);
 
 private:
 	// vector<thread> threads;

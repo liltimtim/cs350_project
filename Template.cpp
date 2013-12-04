@@ -56,7 +56,7 @@ void Template::calculate_distances(){
 			}
 		}
 		j++;
-		cout << "QUERY " << j << " maxCosineCoefValue: " << maxCosineCoefValue << endl;
+		// cout << "QUERY " << j << " maxCosineCoefValue: " << maxCosineCoefValue << endl;
 	}	
 	cout << "********************TEMPLATE END*********************" << endl;
 	/**********************************************

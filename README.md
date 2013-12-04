@@ -45,8 +45,8 @@ make
 				Sample output of AU###_results.txt <br>
 <pre>
 Similarity value	Index (line number)
-0.82			2
-0.76			6
+0.82				2
+0.76				6
 (to 10 values)		..
 </pre>
 
@@ -58,6 +58,9 @@ Similarity value	Index (line number)
 	</li>
 	<li>
 		KD Tree
+	</li>
+	<li>
+		Clean up the comments, apply appropriate headers to each file
 	</li>
 </ul>
 
