@@ -1,8 +1,14 @@
+/****************************************************
+Authors: Richard Abercrombie & Timothy Barrett
+Project: CSCE 350 Facial Expression Recognition
+Date: 10/31/2013
+
+File: Templates.cpp
+*****************************************************/
+
 #include "Templates.h"
 //Constructor
-Templates::Templates(){
-	// all_template_results.reserve( 47*3 );
-}
+Templates::Templates(){}
 
 /*
 	Function 'findTemplateName'
@@ -20,21 +26,20 @@ bool Templates::exists(string templateName){
 	}
 	return false;
 }
+
+//Pushes template vector to the template class
 void Templates::push_template(string id, string file){
 	Scanner scanner;
 	scanner.openFile(file);
 	ScanLine scanLine;
 	Template newTemplate;
-	// cout << "DIAGNOSTIC push_template " << id << " " << file << endl;
+
 	//while file has more data get each double in the template
 	templates.insert(pair<string, Template>(id, newTemplate)); //insert template
 
 	//read in each line and parse for double
 	while (scanner.hasMoreData()){
-		// string newLine = scanner.nextLine();
-		// double newDouble = scanner.nextDouble();
-		// cout << "DIAGNOSTIC push_template double " << newDouble << endl;
-		// templates[id].addItem(newDouble);
+
 		string newLine = scanner.nextLine();
 		scanLine.openString(newLine);
 		vector<double> tempVector;
@@ -47,11 +52,12 @@ void Templates::push_template(string id, string file){
 	}
 
 }
+
+//Pushes a query line to the template class
 void Templates::push_query(string id, string filename, string filePath){
 	Scanner scanner;
 	scanner.openFile(filePath);
 	Template newTemplate;
-	// cout << "DIAGNOSTIC push_query " << id << " " << filename << " " << endl;
 
 	templates.insert(pair<string, Template>(id, newTemplate));
 	while(scanner.hasMoreData()){
@@ -60,6 +66,7 @@ void Templates::push_query(string id, string filename, string filePath){
 	}
 }
 
+//Runs similarity calculations on each template in the template class
 void Templates::calculate_distances(){
 
 	//for each template in templates calculate the distances 
@@ -70,15 +77,4 @@ void Templates::calculate_distances(){
 
 	}
 
-	// cout << "FIRST::: Size of all_template_results: " << all_template_results.size() << endl;
 }
-
-//return a reference to all the template contained in templates
-map<string, Template>& Templates::getTemplate(string whichTemplate){
-	return this->templates;
-}
-
-// map<string, Template> Templates::getData(){
-// 	return templates;
-// }
-

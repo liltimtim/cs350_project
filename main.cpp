@@ -3,6 +3,8 @@ Authors: Richard Abercrombie, Tim Barrett
 Project: CSCE 350 Facial Expression Recognition 
 Date: 10/28/13
 
+File: main.cpp
+
 Determine the Facial Expression of multiple images
 *************************/
 
@@ -12,11 +14,10 @@ static const string PATH_1 = "./data_project_part1";
 static const string PATH_2 = "./data_project_part2";
 
 int main(int argc, char *argv[]) {
-    Timer tmr;
+    // Timer tmr;
 
 	DIR* indir1;
 	DIR* indir2;
-    DIR* outdir;
 	DoStuff Worker;
 
     //Define Directories
@@ -26,22 +27,10 @@ int main(int argc, char *argv[]) {
     //Process files within Directories
     Worker.feed(indir1, PATH_1);
     Worker.feed(indir2, PATH_2);
-
     
-    //don't comment out the timer it works!  It measure fairly accurately the 
-    //time the program takes to execute.
-    double timeElap = tmr.elapsed();
-    cout << timeElap << endl;
-    //Calculate the similiarity values for all 
-    //queries and templates
-    // Worker.calculate_distances();
-    // Worker.write_distances();
-    //Worker.write_distances returns AU###_result.txt
-    //
-    //Similarity value              Index (line number)
-    // 3.125                        2
-    // 1.245                        6
-    // ,,                            ..
+    //timer
+    // double timeElap = tmr.elapsed();
+    // cout << timeElap << endl;
 
     return 0;
 }

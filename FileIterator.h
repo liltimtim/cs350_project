@@ -3,7 +3,7 @@ Authors: Richard Abercrombie & Timothy Barrett
 Project: CSCE 350 Facial Expression Recognition
 Date: 10/31/2013
 
-main.h file for main.cpp
+File: FileIterator.h
 *****************************************************/
 
 #ifndef FILE_ITERATOR_H
@@ -26,7 +26,7 @@ class FileIterator{
 		void IterateDir(DIR* dir, string path);
 		void ProcessFile(string file, string path);
 		void calculations();
-		// Templates& returnLoaderTemplates();
+
 	private:
 		dirent* entity;
 		vector<string> tokenize(string var, char delimiter);

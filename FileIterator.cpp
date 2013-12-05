@@ -1,3 +1,11 @@
+/****************************************************
+Authors: Richard Abercrombie & Timothy Barrett
+Project: CSCE 350 Facial Expression Recognition
+Date: 10/31/2013
+
+File: FileIterator.cpp
+*****************************************************/
+
 #include "FileIterator.h"
 
 FileIterator::FileIterator(){}
@@ -25,6 +33,9 @@ void FileIterator::ProcessFile(string file, string path) {
 	string type = tokens.at(1);
 	string pathToFile = path + "/" + file;
 
+	tokens = tokenize(file, '.');
+	file = tokens.at(0);
+
 	//Send file to Templates class
 	if (type.find("template") != string::npos) { //If type contains template
 		// cout << "DIAGNOSTIC " << id << endl;
@@ -34,19 +45,13 @@ void FileIterator::ProcessFile(string file, string path) {
 	}
 	
 }
-// Templates& FileIterator::returnLoadedTemplates(){
-// 	return this->temps;
-// }
+
+//Tell templates class to perform 
+//similarity calculations on all templates
 void FileIterator::calculations(){
 	temps.calculate_distances();
 }
 
-/*
-	return access to temps so you can get the template result
-*/
-// Templates FileIterator::getTemplates(){
-// 	return this->temps;
-// }
 // Tokenizes a given string by a given delimiter
 vector<string> FileIterator::tokenize(string var, char delimiter) {
 	istringstream ss(var);

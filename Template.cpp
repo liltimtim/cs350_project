@@ -1,3 +1,11 @@
+/****************************************************
+Authors: Richard Abercrombie & Timothy Barrett
+Project: CSCE 350 Facial Expression Recognition
+Date: 10/31/2013
+
+File: Template.cpp
+*****************************************************/
+
 #include "Template.h"
 
 Template::Template(){
@@ -9,8 +17,6 @@ Template::Template(){
 * c(A, B) = ( A * B ) / ( sqrt(A*A) * sqrt(B*B) ) <-- cosine of two vectors
 **/
 void Template::calculate_distances(){
-
-	cout << templateName << endl;
 
 	unsigned int j = 0;
 	for(map<string, vector<double> >::iterator it=queries.begin(); it != queries.end(); ++it){ //iterates queries
@@ -38,32 +44,39 @@ void Template::calculate_distances(){
 				pair<double, int> cur_pair;
 				cur_pair = make_pair(cosCalculation, i+1);
 				query.results_vector.push_back(cur_pair);
-
-				// cout << "Template " << i << " cosCalculation: " << cosCalculation << endl;
 			}
 
 		}
+
+		//Sort the vector to determine the top 10 similarity values
 		std::sort(query.results_vector.begin(), query.results_vector.end());
-		
-		cout << it->first << endl;
-		print_top_10(query.results_vector);
 
-
-		// all_query_results.push_back(query);
+		//Write the values to files
+		print_top_10(query);
 
 		j++;
 	}	
-	// cout << "********************TEMPLATE END*********************" << endl;
 
-	// return all_query_results;
 }
 
-void Template::print_top_10(vector<pair<double,int> > results) {
+void Template::print_top_10(struct Template::Query_Results results) {
+	string path;
+	path = "./results/"+results.name+"_results.txt";
 	
-	for (unsigned int i = results.size()-1; i > results.size() - 11; --i)
-	{
-		cout << results[i].first << " \t " << results[i].second+1 << endl;
+	ofstream myfile (path.c_str());
+
+	if (myfile.is_open())
+	{	
+		myfile << "Similarity \t Indices" << endl;
+		for (unsigned int i = results.results_vector.size()-1; i > results.results_vector.size() - 11; --i)
+		{
+			myfile << results.results_vector[i].first << " \t " << results.results_vector[i].second+1 << endl;
+		}
+		myfile.close();
 	}
+	else cout << "Unable to open file";
+
+
 }
 
 double Template::calculateDotProductOfVectors(vector<double> vec1, vector<double> vec2){
@@ -111,7 +124,3 @@ unsigned int Template::sizeQuery(){
 	return queries.size();
 }
 
-//return the results from the template
-// struct Query_Results& getTemplateResults(){
-// 	return this->Query_Results;
-// }

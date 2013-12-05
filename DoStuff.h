@@ -3,7 +3,7 @@ Authors: Richard Abercrombie & Timothy Barrett
 Project: CSCE 350 Facial Expression Recognition
 Date: 10/31/2013
 
-main.h file for main.cpp
+File: DoStuff.h
 *****************************************************/
 
 #ifndef DO_STUFF_H
@@ -23,13 +23,10 @@ class DoStuff{
 		DoStuff();
 
 		void feed(DIR* dir, string path); 
-		// void write_distances(DIR* outdir);
-		// void write_to_file(string, filename, data, rows=10);
 
 
 	private:
-		// Templates temps;	
-		// vector<struct Template::Query_Results> distances;
+
 
 };
 

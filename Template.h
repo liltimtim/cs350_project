@@ -1,3 +1,10 @@
+/****************************************************
+Authors: Richard Abercrombie & Timothy Barrett
+Project: CSCE 350 Facial Expression Recognition
+Date: 10/31/2013
+
+File: Template.h
+*****************************************************/
 #ifndef TEMPLATE_H
 #define TEMPLATE_H
 
@@ -6,7 +13,7 @@
 #include <vector>
 #include <map>
 #include <cmath>
-// #include <thread>
+#include <fstream>
 
 using namespace std;
 
@@ -22,12 +29,7 @@ public:
 	unsigned int sizeQuery();
 	struct Query_Results& getTemplateResults();
 
-	// vector<std::thread> workerThreads;
 private:
-
-	string templateName;
-	vector<vector<double> > data;
-	map<string, vector<double> > queries;
 
 	struct Query_Results
 	{
@@ -35,22 +37,14 @@ private:
 		vector<pair<double, int> > results_vector;
 	};
 
-	void print_top_10(vector<pair<double,int> > results);
-	// vector<struct Template::Query_Results> all_query_results;
+	string templateName;
+	vector<vector<double> > data;
+	map<string, vector<double> > queries;
 
-	// map<string, vector<double> > results;
-	
-	/**********************************************
-	*			Richards modifications
-	*				start
-	**********************************************/	
-
+	//private functions
+	void print_top_10(struct Template::Query_Results results);
 	double calculateDotProductOfVectors(vector<double> vec1, vector<double> vec2);
 
-	/**********************************************
-	*			Richards modifications
-	*				end
-	**********************************************/
 	
 
 };

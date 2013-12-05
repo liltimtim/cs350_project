@@ -3,7 +3,7 @@ Authors: Richard Abercrombie & Timothy Barrett
 Project: CSCE 350 Facial Expression Recognition
 Date: 10/31/2013
 
-main.h file for main.cpp
+File: Main.h
 *****************************************************/
 
 #ifndef MAIN_H
@@ -13,7 +13,8 @@ main.h file for main.cpp
 #include <cstdlib>
 #include <cstring>
 #include "DoStuff.h"
-#include "Utilities/Timer.h"
+// #include "Utilities/Timer.h"
+
 using namespace std;
 
 class Main{

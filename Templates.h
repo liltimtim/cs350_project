@@ -1,8 +1,10 @@
-/**
-Templates Header File
-Authors: Richard Abercrombie and Timothy Barrett
+/****************************************************
+Authors: Richard Abercrombie & Timothy Barrett
+Project: CSCE 350 Facial Expression Recognition
+Date: 10/31/2013
 
-*/
+File: Templates.h
+*****************************************************/
 #ifndef TEMPLATES_H
 #define TEMPLATES_H
 #include <map>
@@ -23,21 +25,13 @@ public:
 	bool exists(string templateName);
 	void push_template(string id, string file);
 	void push_query(string id, string filename, string filePath);
-	map<string, Template>& getTemplate(string input);
-	void calculate_distances(); //run distance calculations on each Template
-	// map<string, Template> getData();
-	// vector<struct Template::Query_Results> get_distances();
+	void calculate_distances(); 
+
 
 private:
-	/**************
-	 * Private Variables
-	 **/
-	 string templateName;
-	 //map<a ID, a template>
-	 map<string, Template> templates;
-	 // vector<struct Template::Query_Results> all_template_results;
 
-	 //private functions
+	 map<string, Template> templates;
+
 
 	 
 	 void openFile();

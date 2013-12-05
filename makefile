@@ -14,7 +14,6 @@ SL = ScanLine.o
 S = Scanner.o
 U = Utils.o
 # TI = Timer.o
-# THR = Threader.o
 
 #FaceRecognition: $(M) $(DS) $(FI) $(TS) $(T) $(SL) $(S) $(U)
 #	$(GPP) -o FaceRecognition $(M) $(DS) $(FI) $(SL) $(S) $(U) $(TAIL)
@@ -39,9 +38,6 @@ Templates.o: Templates.h Templates.cpp
 
 Template.o: Template.h Template.cpp
 	$(GPP) -o Template.o -c Template.cpp
-	
-# Threader.o: Threader.h Threader.cpp
-# 	$(GPP) -o Threader.o -c Threader.cpp
 
 ScanLine.o: $(SCANLINE)/ScanLine.h $(SCANLINE)/ScanLine.cpp
 	$(GPP) -o ScanLine.o -c $(SCANLINE)/ScanLine.cpp
