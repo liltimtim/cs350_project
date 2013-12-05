@@ -17,28 +17,28 @@ void DoStuff::feed(DIR* dir, string path) {
 
 }
 
-void DoStuff::write_distances(DIR* outdir) {
-	distances = temps.get_distances();
+// void DoStuff::write_distances(DIR* outdir) {
+// 	distances = temps.get_distances();
 
-	for (unsigned int i = 0; i < distances.size(); ++i)
-	{
-		struct Template::Query_Results cur_result_query;
-		cur_result_query = distances[i];
+// 	for (unsigned int i = 0; i < distances.size(); ++i)
+// 	{
+// 		struct Template::Query_Results cur_result_query;
+// 		cur_result_query = distances[i];
 
-		string query_name = cur_result_query.name;
+// 		string query_name = cur_result_query.name;
 		
-		vector<pair<double, int> > cur_result_vector;
-		cur_result_vector = cur_result_query.results_vector;
+// 		vector<pair<double, int> > cur_result_vector;
+// 		cur_result_vector = cur_result_query.results_vector;
 
-		cout << query_name << endl;
+// 		cout << query_name << endl;
 
-		for (unsigned int i = 0; i < cur_result_vector.size(); ++i)
-		{
-			cout << "hi" << " -- " << "There" << endl;
-		}
+// 		for (unsigned int i = 0; i < cur_result_vector.size(); ++i)
+// 		{
+// 			cout << "hi" << " -- " << "There" << endl;
+// 		}
 
-	}
-}
+// 	}
+// }
 
 //get results from the template instances
 // void DoStuff::get_results(){

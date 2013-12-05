@@ -26,7 +26,7 @@ public:
 	map<string, Template>& getTemplate(string input);
 	void calculate_distances(); //run distance calculations on each Template
 	// map<string, Template> getData();
-	vector<struct Template::Query_Results> get_distances();
+	// vector<struct Template::Query_Results> get_distances();
 
 private:
 	/**************
@@ -35,7 +35,7 @@ private:
 	 string templateName;
 	 //map<a ID, a template>
 	 map<string, Template> templates;
-	 vector<struct Template::Query_Results> all_template_results;
+	 // vector<struct Template::Query_Results> all_template_results;
 
 	 //private functions
 

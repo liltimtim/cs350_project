@@ -30,7 +30,7 @@ void FileIterator::ProcessFile(string file, string path) {
 		// cout << "DIAGNOSTIC " << id << endl;
 		temps.push_template(id, pathToFile);
 	} else { //If type !contains template, ie. query file
-		temps.push_query(id, type, pathToFile);
+		temps.push_query(id, file, pathToFile);
 	}
 	
 }

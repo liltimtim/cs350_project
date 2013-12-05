@@ -1,7 +1,7 @@
 #include "Templates.h"
 //Constructor
 Templates::Templates(){
-	all_template_results.reserve( 47*3 );
+	// all_template_results.reserve( 47*3 );
 }
 
 /*
@@ -62,19 +62,15 @@ void Templates::push_query(string id, string filename, string filePath){
 
 void Templates::calculate_distances(){
 
-	std::vector<struct Template::Query_Results>::iterator iter;
-	iter=all_template_results.begin();
-
 	//for each template in templates calculate the distances 
 	for(map<string, Template>::iterator it=templates.begin(); it!=templates.end(); ++it){
-		vector<struct Template::Query_Results> template_results;
+
 		//Calculate the Queries top distances 
-		template_results = it->second.calculate_distances();
-		all_template_results.insert(iter,template_results.begin(), template_results.end());
+		it->second.calculate_distances();
 
 	}
 
-	cout << "FIRST::: Size of all_template_results: " << all_template_results.size() << endl;
+	// cout << "FIRST::: Size of all_template_results: " << all_template_results.size() << endl;
 }
 
 //return a reference to all the template contained in templates
@@ -86,8 +82,3 @@ map<string, Template>& Templates::getTemplate(string whichTemplate){
 // 	return templates;
 // }
 
-vector<struct Template::Query_Results> Templates::get_distances() {
-	// cout << "SECOND:::Size of all_template_results: " << all_template_results.size() << endl;
-	cout << "ji";
-	return all_template_results;
-}

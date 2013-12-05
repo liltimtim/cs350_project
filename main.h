@@ -13,7 +13,7 @@ main.h file for main.cpp
 #include <cstdlib>
 #include <cstring>
 #include "DoStuff.h"
-// #include "Utilities/Timer.h"
+#include "Utilities/Timer.h"
 using namespace std;
 
 class Main{

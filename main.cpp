@@ -12,7 +12,7 @@ static const string PATH_1 = "./data_project_part1";
 static const string PATH_2 = "./data_project_part2";
 
 int main(int argc, char *argv[]) {
-    // Timer tmr;
+    Timer tmr;
 
 	DIR* indir1;
 	DIR* indir2;
@@ -30,8 +30,8 @@ int main(int argc, char *argv[]) {
     
     //don't comment out the timer it works!  It measure fairly accurately the 
     //time the program takes to execute.
-    // double timeElap = tmr.elapsed();
-    // cout << timeElap << endl;
+    double timeElap = tmr.elapsed();
+    cout << timeElap << endl;
     //Calculate the similiarity values for all 
     //queries and templates
     // Worker.calculate_distances();

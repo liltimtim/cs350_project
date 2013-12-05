@@ -23,13 +23,13 @@ class DoStuff{
 		DoStuff();
 
 		void feed(DIR* dir, string path); 
-		void write_distances(DIR* outdir);
+		// void write_distances(DIR* outdir);
 		// void write_to_file(string, filename, data, rows=10);
 
 
 	private:
-		Templates temps;	
-		vector<struct Template::Query_Results> distances;
+		// Templates temps;	
+		// vector<struct Template::Query_Results> distances;
 
 };
 

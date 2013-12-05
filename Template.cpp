@@ -8,9 +8,9 @@ Template::Template(){
 * Return the top 10 distances for each query in the template
 * c(A, B) = ( A * B ) / ( sqrt(A*A) * sqrt(B*B) ) <-- cosine of two vectors
 **/
-vector<struct Template::Query_Results>& Template::calculate_distances(){
+void Template::calculate_distances(){
 
-	
+	cout << templateName << endl;
 
 	unsigned int j = 0;
 	for(map<string, vector<double> >::iterator it=queries.begin(); it != queries.end(); ++it){ //iterates queries
@@ -44,15 +44,27 @@ vector<struct Template::Query_Results>& Template::calculate_distances(){
 
 		}
 		std::sort(query.results_vector.begin(), query.results_vector.end());
-		all_query_results.push_back(query);
+		
+		cout << it->first << endl;
+		print_top_10(query.results_vector);
+
+
+		// all_query_results.push_back(query);
 
 		j++;
 	}	
 	// cout << "********************TEMPLATE END*********************" << endl;
 
-	return all_query_results;
+	// return all_query_results;
 }
 
+void Template::print_top_10(vector<pair<double,int> > results) {
+	
+	for (unsigned int i = results.size()-1; i > results.size() - 11; --i)
+	{
+		cout << results[i].first << " \t " << results[i].second+1 << endl;
+	}
+}
 
 double Template::calculateDotProductOfVectors(vector<double> vec1, vector<double> vec2){
 	//WILL CALCULATE THE DOT PRODUCT OF TWO VECTORS
