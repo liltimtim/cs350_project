@@ -34,10 +34,19 @@ void FileIterator::ProcessFile(string file, string path) {
 	}
 	
 }
+// Templates& FileIterator::returnLoadedTemplates(){
+// 	return this->temps;
+// }
 void FileIterator::calculations(){
 	temps.calculate_distances();
 }
 
+/*
+	return access to temps so you can get the template result
+*/
+// Templates FileIterator::getTemplates(){
+// 	return this->temps;
+// }
 // Tokenizes a given string by a given delimiter
 vector<string> FileIterator::tokenize(string var, char delimiter) {
 	istringstream ss(var);

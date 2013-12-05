@@ -26,6 +26,7 @@ class FileIterator{
 		void IterateDir(DIR* dir, string path);
 		void ProcessFile(string file, string path);
 		void calculations();
+		// Templates& returnLoaderTemplates();
 	private:
 		dirent* entity;
 		vector<string> tokenize(string var, char delimiter);

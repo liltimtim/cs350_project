@@ -11,7 +11,8 @@ main.h file for main.cpp
 
 #include <iostream>
 #include "FileIterator.h"
-// #include "Templates.h"
+#include "Templates.h"
+#include "Template.h"
 
 
 using namespace std;
@@ -19,18 +20,16 @@ using namespace std;
 class DoStuff{
 	public:
 
-		
-
 		DoStuff();
 
 		void feed(DIR* dir, string path); 
-		// vector<pair<double, vector<double> > > calculate_distances();
-		void calculate_distances();
 		void write_distances(DIR* outdir);
-		// 	//templates.get_distances() (map)
-		// 	//write to files
+		// void write_to_file(string, filename, data, rows=10);
+
+
 	private:
 		Templates temps;	
+		vector<struct Template::Query_Results> distances;
 
 };
 

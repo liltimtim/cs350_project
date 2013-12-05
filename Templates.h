@@ -7,7 +7,7 @@ Authors: Richard Abercrombie and Timothy Barrett
 #define TEMPLATES_H
 #include <map>
 #include <iostream>
-
+#include <vector> 
 #include "Utilities/Scanner.h"
 #include "Utilities/ScanLine.h"
 #include "Utilities/Utils.h"
@@ -23,9 +23,11 @@ public:
 	bool exists(string templateName);
 	void push_template(string id, string file);
 	void push_query(string id, string filename, string filePath);
-	Template getTemplate(string input);
+	map<string, Template>& getTemplate(string input);
 	void calculate_distances(); //run distance calculations on each Template
-	map<string, Template> getData();
+	// map<string, Template> getData();
+	vector<struct Template::Query_Results> get_distances();
+
 private:
 	/**************
 	 * Private Variables
@@ -33,8 +35,7 @@ private:
 	 string templateName;
 	 //map<a ID, a template>
 	 map<string, Template> templates;
-
-	 //something to hold structure of results
+	 vector<struct Template::Query_Results> all_template_results;
 
 	 //private functions
 

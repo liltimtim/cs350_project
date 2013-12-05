@@ -15,19 +15,28 @@ class Template{
 public:
 	Template();
 
+	struct Query_Results
+	{
+		string name;
+		vector<pair<double, int> > results_vector;
+	};
+
 	string getName();
 	void addItem(vector<double> input);
-	void calculate_distances();
+	vector<struct Query_Results>& calculate_distances();
 	void addQuery(string queryName, double valueToAdd);
 	unsigned int sizeQuery();
-
+	struct Query_Results& getTemplateResults();
 
 	// vector<std::thread> workerThreads;
 private:
+
 	string templateName;
 	vector<vector<double> > data;
 	map<string, vector<double> > queries;
-	map<string, vector<double> > results;
+	vector<struct Template::Query_Results> all_query_results;
+
+	// map<string, vector<double> > results;
 	
 	/**********************************************
 	*			Richards modifications

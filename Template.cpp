@@ -8,36 +8,18 @@ Template::Template(){
 * Return the top 10 distances for each query in the template
 * c(A, B) = ( A * B ) / ( sqrt(A*A) * sqrt(B*B) ) <-- cosine of two vectors
 **/
-void Template::calculate_distances(){
-	//for each query compare to template vector
-	// cout << "Size of Queries " << sizeQuery() << endl;
-	// for(map<string, vector<double> >::iterator it=queries.begin(); it != queries.end(); ++it){
-	// 	//spawn threads and do work
+vector<struct Template::Query_Results>& Template::calculate_distances(){
 
-
-	// 	//compare the query iteration 
-	// 	for(unsigned int i = 0; i < data.size(); i++){
-	// 		// workerThreads.push_back(thread(threadWork(it->first, it->second, data[i])));
-	// 		workerThreads.push_back(thread(test()));
-	// 	}
-	// }
-
-	/**********************************************
-	*			Richards modifications
-	*				start
-	**********************************************/
 	
 
 	unsigned int j = 0;
 	for(map<string, vector<double> >::iterator it=queries.begin(); it != queries.end(); ++it){ //iterates queries
 
-		//Create a vector to contain all of the cosine values
+		struct Query_Results query;
+		query.name = it->first;
 
 		//compare the query iteration 
 		for(unsigned int i = 0; i < data.size(); i++){ //this loop iterates over each template in data
-			
-			//Vector A is query 
-			//Vector B is template
 			
 			double vectorADotA; //A*A
 			double vectorBDotB; //B*B
@@ -52,22 +34,24 @@ void Template::calculate_distances(){
 
 				cosCalculation = vectorADotB / (sqrt(vectorADotA)*sqrt(vectorBDotB));
 
-				cout << "Template " << i << " cosCalculation: " << cosCalculation << endl;
+				//add distances to the query results structure 
+				pair<double, int> cur_pair;
+				cur_pair = make_pair(cosCalculation, i+1);
+				query.results_vector.push_back(cur_pair);
+
+				// cout << "Template " << i << " cosCalculation: " << cosCalculation << endl;
 			}
+
 		}
+		std::sort(query.results_vector.begin(), query.results_vector.end());
+		all_query_results.push_back(query);
+
 		j++;
-		// cout << "QUERY " << j << " maxCosineCoefValue: " << maxCosineCoefValue << endl;
 	}	
-	cout << "********************TEMPLATE END*********************" << endl;
-	/**********************************************
-	*			Richards modifications
-	*				end
-	**********************************************/
+	// cout << "********************TEMPLATE END*********************" << endl;
+
+	return all_query_results;
 }
-	/**********************************************
-	*			Richards modifications
-	*				start
-	**********************************************/
 
 
 double Template::calculateDotProductOfVectors(vector<double> vec1, vector<double> vec2){
@@ -87,11 +71,6 @@ double Template::calculateDotProductOfVectors(vector<double> vec1, vector<double
 
 	 return result;
 }
-
-	/**********************************************
-	*			Richards modifications
-	*				end
-	**********************************************/
 
 
 string Template::getName(){
@@ -120,3 +99,7 @@ unsigned int Template::sizeQuery(){
 	return queries.size();
 }
 
+//return the results from the template
+// struct Query_Results& getTemplateResults(){
+// 	return this->Query_Results;
+// }
